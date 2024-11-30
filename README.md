@@ -12,3 +12,6 @@ credits to [js-dos/create-dosbox](https://github.com/js-dos/create-dosbox)
 > example gif from the `create-dosbox` repo
 
 
+hosted:
+
+https://doomonline1.vercel.app/
