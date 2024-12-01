@@ -39,6 +39,24 @@
       margin-bottom: 30px;
     }
   </style>
+<style>
+    .instructions-container {
+      border: 2px solid #007bff;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .instruction {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #007bff;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -59,7 +77,12 @@
     <a href="dos.html" class="btn btn-primary btn-start">Launch Doom Emulator</a>
     <a href="/doomII/index.html" class="btn btn-primary btn-start">Launch Doom II Emulator</a>
   </div>
-
+<div class="container">
+    <div class="instructions-container">
+      <h2>Game Controls</h2>
+      <div class="instruction">To move around, use the <span class="highlight">Arrow Keys</span></div>
+      <div class="instruction">To shoot, press the <span class="highlight">Ctrl Key</span></div>
+    </div>
   <!-- Bootstrap Bundle JS -->
   <script src="./bootstrap.bundle.min.js"></script>
 </body>
