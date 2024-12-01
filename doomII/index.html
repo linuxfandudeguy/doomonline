@@ -18,23 +18,14 @@
 </head>
 
 <body>
-  <div id="jsdos" />
+  <div id="jsdos"></div>
   <script>
-    emulators.pathPrefix = "js-dos/";
-    Dos(document.getElementById("jsdos"), {
-/* using js-dos services, readmore: https://js-dos.com/v7/build/docs/jsdos-services#saveload-on-backend
-      clientId: (userGesture) => {
-        if (!userGesture) {
-            return Promise.resolve(null); // <-- return cached { namespace, id } or null
-        }
+    emulators.pathPrefix = "./js-dos/";
 
-        return Promise.resolve({
-            namespace: "test", // <-- your namespace
-            id: "client", // <-- some id of user
-        })
-      }
-*/      
-    }).run("./bundle.jsdos");
+    // Adjust the path to point to the correct subfolder
+    Dos(document.getElementById("jsdos"), {
+      // Add custom clientId or other settings here if needed
+    }).run("doomII/bundle.jsdos");  <!-- Replace subfolder with your actual folder name -->
   </script>
 </body>
 
