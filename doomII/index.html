@@ -20,7 +20,7 @@
 <body>
   <div id="jsdos" />
   <script>
-    emulators.pathPrefix = "./js-dos/";
+    emulators.pathPrefix = "js-dos/";
     Dos(document.getElementById("jsdos"), {
 /* using js-dos services, readmore: https://js-dos.com/v7/build/docs/jsdos-services#saveload-on-backend
       clientId: (userGesture) => {
@@ -34,7 +34,7 @@
         })
       }
 */      
-    }).run("bundle.jsdos");
+    }).run("./bundle.jsdos");
   </script>
 </body>
 
