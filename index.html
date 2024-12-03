@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Doom Emulator</title>
   <!-- There are no bugs in this code...just demons. -->
-
-  <!-- Bootstrap CSS -->
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Experience the classic Doom game in your browser using js-dos, Bun, and modern web technologies.">
+  <meta name="author" content="Your Name">
+  <meta name="keywords" content="Doom Emulator, js-dos, browser games, Doom II, Final Doom, Bun">
+  <meta name="theme-color" content="#007bff">
+  <meta name="robots" content="index, follow"> 
   <link href="./bootstrap.min.css" rel="stylesheet">
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <style>
@@ -123,7 +127,29 @@
             </div>
             </div>
         </div>
-    </div>  
+    </div>
+  <noscript>
+  <div style="text-align: center; padding: 20px; background-color: #0a0a0a; color: #f00; font-family: 'Courier New', Courier, monospace; border: 2px dashed #f00; border-radius: 10px; max-width: 500px; margin: 50px auto;">
+    <h2 style="margin: 0; font-size: 1.5rem;">🚨 ERROR: JS MISSING 🚨</h2>
+    <p style="margin: 10px 0; font-size: 1rem;">
+      This is an **emulator for DOOM**. You know, the game that runs on *everything*? Even toasters?  
+    </p>
+    <p style="margin: 10px 0; font-size: 1rem;">
+      But it won’t run here because JavaScript is OFF. What are you, a Cyberdemon trying to sabotage this?  
+    </p>
+    <p style="margin: 10px 0; font-size: 1rem;">
+      Flip the JS switch, and let’s get DOOM-ing! 🔥
+    </p>
+    <small style="font-size: 0.8rem;">(Or just stare at this box. Your move, Doom Slayer.)</small>
+  </div>
+</noscript>
 <script src="./bootstrap.bundle.min.js"></script>
+<script src="./demons/darkmode-js.min.js"></script>
+<script>
+  function addDarkmodeWidget() {
+    new Darkmode().showWidget();
+  }
+  window.addEventListener('load', addDarkmodeWidget);
+</script>
 </body>
 </html>
