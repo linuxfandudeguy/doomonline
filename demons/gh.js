@@ -6,7 +6,7 @@
 
     // Create the img element for the GitHub logo
     const githubIcon = document.createElement('img');
-    githubIcon.src = './github-mark-white.svg';
+    githubIcon.src = './demons/github-mark-white.svg';
     githubIcon.alt = 'GitHub';
 
     // Append the image to the link
