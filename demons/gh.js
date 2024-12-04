@@ -1,6 +1,6 @@
     // Create the GitHub floating icon and its container
     const githubIconContainer = document.createElement('a');
-    githubIconContainer.href = 'https://github.com';
+    githubIconContainer.href = 'https://github.com/linuxfandudeguy/doomonline';
     githubIconContainer.target = '_blank';
     githubIconContainer.id = 'github-icon';
 
