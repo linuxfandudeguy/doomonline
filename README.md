@@ -18,3 +18,5 @@ https://doomonline1.vercel.app/
 
 
 https://linuxfandudeguy.github.io/doomonline/
+
+> IF YOU FORK THIS REPO, YOU MUST MAKE CHANGES
