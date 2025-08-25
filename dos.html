@@ -35,6 +35,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKPJD4RG"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>  
+<script type="importmap">
+  {
+    "imports": {
+      "scriptprocessornodeshim": "https://linuxfandudeguy.github.io/shim-audiocontext-scriptprocessornode/scriptprocessornodeshim.mjs"
+    }
+  }
+  </script>
+
+  <!-- Import the shim module -->
+  <script type="module">
+    import 'scriptprocessornodeshim';
+  </script>
 <div id="jsdos" />
   <script>
     emulators.pathPrefix = "js-dos/";
