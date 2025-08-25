@@ -29,6 +29,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </style>
   <script src="./js-dos/js-dos.js"></script>
   <link href="./js-dos/js-dos.css" rel="stylesheet">
+<script type="importmap">
+  {
+    "imports": {
+      "scriptprocessornodeshim": "../shim-audiocontext-scriptprocessernode/scriptprocessernodeshim.mjs"
+    }
+  }
+  </script>
+<script src="https://linuxfandudeguy.github.io/shim-audiocontext-scriptprocessernode/audiocontext-polyfill.js"></script>
+
+
+  <!-- Import the shim module -->
+  <script type="module">
+    import 'scriptprocessornodeshim';
+  </script>
 </head>
 
 <body>
