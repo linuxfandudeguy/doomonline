@@ -8,12 +8,13 @@ Licensed under the MIT license
 */
 
 
+
 class AudioBufferWrapper {
   constructor(channels, length, sampleRate, channelData) {
     this._channels = channels;
     this._length = length;
     this.sampleRate = sampleRate;
-    this._channelData = channelData; // array of Float32Arrays
+    this._channelData = channelData;
   }
 
   get numberOfChannels() { return this._channels; }
@@ -25,18 +26,8 @@ class AudioBufferWrapper {
 class AudioProcessingEvent {
   constructor(input, output, sampleRate, playbackTime) {
     this.playbackTime = playbackTime;
-    this.inputBuffer = new AudioBufferWrapper(
-      input.length,
-      input[0]?.length || 0,
-      sampleRate,
-      input
-    );
-    this.outputBuffer = new AudioBufferWrapper(
-      output.length,
-      output[0]?.length || 0,
-      sampleRate,
-      output
-    );
+    this.inputBuffer = new AudioBufferWrapper(input.length, input[0]?.length || 0, sampleRate, input);
+    this.outputBuffer = new AudioBufferWrapper(output.length, output[0]?.length || 0, sampleRate, output);
   }
 }
 
@@ -50,7 +41,7 @@ async function applyScriptProcessorPolyfill() {
     "Expect additional latency of ~bufferSize/sampleRate seconds."
   );
 
-  // Worklet processor code as a string
+  // Worklet code as a string
   const processorCodeStr = `
     class ScriptProcessorWorklet extends AudioWorkletProcessor {
       constructor() {
@@ -60,7 +51,6 @@ async function applyScriptProcessorPolyfill() {
         this.numOutputs = 1;
         this.pendingInputs = [];
         this.pendingOutputs = [];
-
         this.port.onmessage = (e) => {
           if (e.data.type === "init") {
             this.bufferSize = e.data.bufferSize || 1024;
@@ -75,12 +65,10 @@ async function applyScriptProcessorPolyfill() {
       process(inputs, outputs) {
         const frameCount = 128;
         const input = [];
-
         for (let i = 0; i < this.numInputs; i++) {
           const inChs = inputs[i] || [];
           input.push(inChs.map(ch => new Float32Array(ch)));
         }
-
         this.pendingInputs.push(input);
 
         if (this.pendingInputs.length * frameCount >= this.bufferSize) {
@@ -98,13 +86,7 @@ async function applyScriptProcessorPolyfill() {
             blockOut.push(new Float32Array(this.bufferSize));
           }
 
-          this.port.postMessage({
-            type: "audioprocess",
-            input: blockIn,
-            output: blockOut,
-            playbackTime: currentTime + this.bufferSize / sampleRate
-          });
-
+          this.port.postMessage({ type: "audioprocess", input: blockIn, output: blockOut, playbackTime: currentTime + this.bufferSize / sampleRate });
           this.pendingInputs = [];
         }
 
@@ -138,7 +120,7 @@ async function applyScriptProcessorPolyfill() {
   dummyCtx.close();
 
   // Polyfilled createScriptProcessor
-  ctxProto.createScriptProcessor = function (bufferSize, numInputChannels, numOutputChannels) {
+  ctxProto.createScriptProcessor = function(bufferSize, numInputChannels, numOutputChannels) {
     const node = new AudioWorkletNode(this, "script-processor-polyfill", {
       numberOfInputs: numInputChannels ? 1 : 0,
       numberOfOutputs: numOutputChannels ? 1 : 0,
@@ -157,12 +139,7 @@ async function applyScriptProcessorPolyfill() {
 
     node.port.onmessage = (event) => {
       if (event.data.type === "audioprocess" && node.onaudioprocess) {
-        const ev = new AudioProcessingEvent(
-          event.data.input,
-          event.data.output,
-          this.sampleRate,
-          event.data.playbackTime || this.currentTime
-        );
+        const ev = new AudioProcessingEvent(event.data.input, event.data.output, this.sampleRate, event.data.playbackTime || this.currentTime);
 
         node.onaudioprocess(ev);
 
