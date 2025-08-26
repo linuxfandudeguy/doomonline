@@ -55,7 +55,7 @@ async function applyScriptProcessorPolyfill() {
 
   const ctxProto = window.AudioContext.prototype;
 
-  if (ctxProto.createScriptProcessor) return; // Already supported
+  // if (ctxProto.createScriptProcessor) return; // Already supported
 
   console.warn(
     "[ScriptProcessorNode polyfill] Using AudioWorklet emulation. " +
