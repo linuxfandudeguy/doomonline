@@ -31,17 +31,20 @@ class AudioProcessingEvent {
   }
 }
 
+let workletModulePromise = null;
+let workletModuleLoaded = false;
+
 async function applyScriptProcessorPolyfill() {
   if (!window.AudioContext) return;
-
-  const ctxProto = window.AudioContext.prototype;
 
   console.warn(
     "[ScriptProcessorNode polyfill] Using AudioWorklet emulation. " +
     "Expect additional latency of ~bufferSize/sampleRate seconds."
   );
 
-  // Worklet code as a string
+  const ctxProto = window.AudioContext.prototype;
+
+  // Worklet processor code as a string
   const processorCodeStr = `
     class ScriptProcessorWorklet extends AudioWorkletProcessor {
       constructor() {
@@ -110,17 +113,22 @@ async function applyScriptProcessorPolyfill() {
   const blob = new Blob([processorCodeStr], { type: "application/javascript" });
   const url = URL.createObjectURL(blob);
 
-  const dummyCtx = new AudioContext();
-  try {
-    await dummyCtx.audioWorklet.addModule(url);
-  } catch (err) {
-    console.error("Failed to load polyfill AudioWorklet:", err);
-    return;
-  }
-  dummyCtx.close();
+  workletModulePromise = (async () => {
+    const dummyCtx = new AudioContext();
+    try {
+      await dummyCtx.audioWorklet.addModule(url);
+      workletModuleLoaded = true;
+    } catch (err) {
+      console.error("Failed to load polyfill AudioWorklet:", err);
+    } finally {
+      dummyCtx.close();
+    }
+  })();
 
   // Polyfilled createScriptProcessor
-  ctxProto.createScriptProcessor = function(bufferSize, numInputChannels, numOutputChannels) {
+  ctxProto.createScriptProcessor = async function(bufferSize, numInputChannels, numOutputChannels) {
+    if (!workletModuleLoaded) await workletModulePromise;
+
     const node = new AudioWorkletNode(this, "script-processor-polyfill", {
       numberOfInputs: numInputChannels ? 1 : 0,
       numberOfOutputs: numOutputChannels ? 1 : 0,
