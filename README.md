@@ -13,8 +13,9 @@ credits to [js-dos/create-dosbox](https://github.com/js-dos/create-dosbox)
 
 
 hosted:
+http://doom-emulator.yeet.su/ 
 
-https://doomonline1.vercel.app/
+https://doomonline1.vercel.app/ (broken)
 
 
 https://linuxfandudeguy.github.io/doomonline/
